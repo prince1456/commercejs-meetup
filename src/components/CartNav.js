@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const CartNav = ({ cart, isCartVisible, toggleCart }) => {
@@ -18,5 +19,10 @@ const CartNav = ({ cart, isCartVisible, toggleCart }) => {
       </div>
     </div>
   );
+};
+CartNav.propTypes = {
+  cart: PropTypes.object.isRequired,
+  isCartVisible: PropTypes.bool.isRequired,
+  toggleCart: PropTypes.func.isRequired,
 };
 export default CartNav;
