@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { commerce } from "./lib/Commerce";
 import "./styles/scss/styles.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faShoppingBag, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import Hero from "./components/Hero";
+import CartNav from "./components/CartNav";
 import ProductsList from "./components/ProductsList";
 import Cart from "./components/Cart";
 
@@ -28,7 +28,8 @@ class App extends Component {
   /**
    * Show hide cart in nav
    */
-  toggleCart = () => this.setState(({ isCartVisible }) => ({ isCartVisible: !isCartVisible }));
+  toggleCart = () =>
+    this.setState(({ isCartVisible }) => ({ isCartVisible: !isCartVisible }));
 
   /**
    * Fetch merchant details
@@ -62,7 +63,7 @@ class App extends Component {
    */
   fetchCart = async () => {
     try {
-      const cart  = await commerce.cart.retrieve();
+      const cart = await commerce.cart.retrieve();
       this.setState({ cart: cart });
     } catch (e) {
       console.error("There was an error fetching the cart", e);
@@ -115,26 +116,6 @@ class App extends Component {
       console.error("There was an error removing the item from the cart", e);
     }
   };
-  renderCartNav() {
-    const { cart, isCartVisible } = this.state;
-
-    return (
-      <div className="nav">
-        <div className="nav__cart" onClick={this.toggleCart}>
-          {!isCartVisible ? (
-            <button className="nav__cart-open">
-              <FontAwesomeIcon size="2x" icon="shopping-bag" color="#292B83"/>
-              {cart !== null ? <span>{cart.total_items}</span> : ''}
-            </button>
-            ) : (
-              <button className="nav__cart-close">
-                <FontAwesomeIcon size="1x" icon="times" color="white"/>
-              </button>
-            )}
-        </div>
-      </div>
-    )
-  }
   /**
    * Empties cart contents
    * https://commercejs.com/docs/sdk/cart/#remove-from-cart
@@ -153,7 +134,7 @@ class App extends Component {
 
     return (
       <div className="app">
-        {this.renderCartNav()}
+        <CartNav {...this.state} toggleCart={this.toggleCart} />
         {isCartVisible && (
           <Cart
             cart={cart}
