@@ -6,7 +6,6 @@ class ProductsList extends Component {
 
     render() {
         const { products } = this.props;
-
         return (
             <>
                 <div className="products" id="products">

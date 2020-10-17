@@ -1,0 +1,8 @@
+
+[build]
+
+  functions = "functions/"
+  
+[[redirects]]
+  from = "/old-path"
+  to = "/new-path"
